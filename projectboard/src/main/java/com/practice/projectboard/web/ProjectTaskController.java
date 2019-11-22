@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class ProjectTaskController {
 	// 즉 Error에 대한 hint를 얻을 수 있다.
 	
 	//BindingResult :Errors의 하위 인터페이스로서 폼 값을 커맨드 객체에 바인딩한 결과를 저장하고 에러코드로 메세지를 가져온다.
+	//새글 추가
 	public ResponseEntity<?> addPTToBoard(@Valid @RequestBody ProjectTask projectTask, BindingResult result){
 		if(result.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
@@ -51,17 +53,24 @@ public class ProjectTaskController {
 		
 	}
 	
-	
+	//모든 글 찾기
 	@GetMapping("/all")
 	public Iterable<ProjectTask> getAllPTs(){
 		return projectTaskService.findAll();
 	}
 	
-
+	// ID로 글찾기
 	@GetMapping("/{pt_id}")
 	public ResponseEntity<?> getPTById(@PathVariable Long pt_id){
 		ProjectTask projectTask = projectTaskService.findById(pt_id);
 		return new ResponseEntity<ProjectTask>(projectTask,HttpStatus.OK);
 	}
  
+	// ID로 글 지우기
+	@DeleteMapping("/{pt_id}")
+	public ResponseEntity<?> deleteProjectTask(@PathVariable Long pt_id){
+		projectTaskService.delete(pt_id);
+		return new ResponseEntity<String>("Project Task deleted", HttpStatus.OK);
+		
+	}
 }
