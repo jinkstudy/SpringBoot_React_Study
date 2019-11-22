@@ -39,4 +39,5 @@ buildNumber.properties
 .metadata
 ./.metadata
 
+/Servers
 ./Servers
