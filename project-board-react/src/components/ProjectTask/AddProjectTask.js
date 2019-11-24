@@ -41,7 +41,7 @@ class AddProjectTask extends Component {
 
     render() {
         const { errors } = this.state;
-
+        console.log(this.state)
         return (
             // <!-- CREATE / UPDATE PROJECT TASK FORM STARTS HERE -->
 
